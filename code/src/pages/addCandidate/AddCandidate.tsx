@@ -4,12 +4,22 @@ import { Form } from '../../components/form';
 interface AddCandidateProps {
   setIsOpen: (open: boolean) => void;
   setAddCandidates: (candidates: any) => void; 
+  data?:{
+    id: string;
+    age: string;
+    city: string;
+    email: string;
+    name: string;
+    postalCode: string;
+    status: string;
+    street: string;
+};
 }
 
-export const AddCandidate = ({setIsOpen, setAddCandidates} : AddCandidateProps) => {
+export const AddCandidate = ({setIsOpen, setAddCandidates, data} : AddCandidateProps) => {
   return (
     <Background>
-      <Form setIsOpen={setIsOpen} setAddCandidates={setAddCandidates}/>
+      <Form data={data} setIsOpen={setIsOpen} setAddCandidates={setAddCandidates}/>
     </Background>
   )
 }

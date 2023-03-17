@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, Fragment, useEffect } from 'react'
 import styled from 'styled-components/macro'
 import { Button } from '../../components/button'
 import { Card } from '../../components/card'
@@ -11,7 +11,21 @@ import { TextInput } from '../../components/inputs';
 
 export const Candidates = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
+  const [isEditing, setIsEditing] = useState<boolean>(false)
   const [candidates, setAddCandidates] = useState([...data])
+
+  const handleSearch = (e: any) => {
+    const value = e.target.value;
+    if (value.length <= 2) {
+      setAddCandidates([...data]);
+    } else {
+      const searchedValue = data.filter((f) => 
+      f.name === value || 
+      f.city === value || 
+      f.status === value.toLowerCase());
+      setAddCandidates(searchedValue);
+    }
+  };
 
   return (
     <>
@@ -20,48 +34,53 @@ export const Candidates = () => {
     ):(
     <Container>
       <Header>
-      <h1>Kandidater</h1>
-      <TextInput type='text' placeholder='Sök kandidat' onChange={(e) => console.log('Sök', e.target.value)} icon/>
-      <Button onClick={() => setIsOpen(!isOpen)} icon={plus}>
+        <h1>Kandidater</h1>
+        <TextInput type='search' placeholder='Sök kandidat' id='sök' name='sök' onChange={(e) => handleSearch(e)} icon />
+        <Button onClick={() => setIsOpen(!isOpen)} icon={plus}>
           Lägg till kandidat
-      </Button>
+        </Button>
       </Header>
+    
       {candidates ? (
         <>
+          <Content>
           <p>Kontakt</p>
-          {candidates.map((candidate, index) => (
+          {candidates.map((candidate) => (
           candidate.status === 'kontakt' && (
-              <Card data={candidates} updateData={setAddCandidates} key={`${candidate.name}-${index}`} name={candidate.name} age={candidate.age} email={candidate.email} street={candidate.street} postalCode={candidate.postalCode} city={candidate.city} status={candidate.status}/>      
+            isEditing ? 
+              (<AddCandidate data={candidate} setIsOpen={setIsOpen} setAddCandidates={setAddCandidates}/> ): 
+              ( <Card key={candidate.id} id={candidate.id} data={candidates} updateData={setAddCandidates}  editData={() => setIsEditing(!isEditing)} name={candidate.name} age={candidate.age} email={candidate.email} street={candidate.street} postalCode={candidate.postalCode} city={candidate.city} status={candidate.status}/> )     
+            ) 
+          ))}
+
+          <p>Intervju</p>
+            {candidates.map((candidate) => (
+              candidate.status === 'intervju' && (
+                <Card key={candidate.id} id={candidate.id} data={candidates} updateData={setAddCandidates} editData={() => setIsOpen(!isOpen)} name={candidate.name} age={candidate.age} email={candidate.email} street={candidate.street} postalCode={candidate.postalCode} city={candidate.city} status={candidate.status}/>      
+              ))  
+            )}  
+
+          <p>Erbjudande</p>   
+          {candidates.map((candidate) => (
+          candidate.status === 'erbjudande' && (
+            <Card key={candidate.id} id={candidate.id} data={candidates} updateData={setAddCandidates} editData={() => setIsOpen(!isOpen)} name={candidate.name} age={candidate.age} email={candidate.email} street={candidate.street} postalCode={candidate.postalCode} city={candidate.city} status={candidate.status}/>      
             ))  
           )}
 
           <p>Dialog</p>
-          {candidates.map((candidate, index) => (
-          candidate.status === 'dialog' && (
-              <Card data={candidates} updateData={setAddCandidates} key={`${candidate.name}-${index}`} name={candidate.name} age={candidate.age} email={candidate.email} street={candidate.street} postalCode={candidate.postalCode} city={candidate.city} status={candidate.status}/>      
-            ))  
-          )}
-
-          <p>Erbjudande</p>   
-          {candidates.map((candidate, index) => (
-          candidate.status === 'erbjudande' && (
-              <Card data={candidates} updateData={setAddCandidates} key={`${candidate.name}-${index}`} name={candidate.name} age={candidate.age} email={candidate.email} street={candidate.street} postalCode={candidate.postalCode} city={candidate.city} status={candidate.status}/>      
-            ))  
-          )}
-
-          <p>Intervju</p>
-          {candidates.map((candidate, index) => (
-          candidate.status === 'intervju' && (
-              <Card data={candidates} updateData={setAddCandidates} key={`${candidate.name}-${index}`} name={candidate.name} age={candidate.age} email={candidate.email} street={candidate.street} postalCode={candidate.postalCode} city={candidate.city} status={candidate.status}/>      
-            ))  
-          )}
+            {candidates.map((candidate) => (
+              candidate.status === 'dialog' && (
+                <Card key={candidate.id} id={candidate.id} data={candidates} updateData={setAddCandidates} editData={() => setIsOpen(!isOpen)} name={candidate.name} age={candidate.age} email={candidate.email} street={candidate.street} postalCode={candidate.postalCode} city={candidate.city} status={candidate.status}/>      
+              ))  
+            )}
 
           <p>Avslutad</p> 
-          {candidates.map((candidate, index) => (
-          candidate.status === 'intervju' && (
-              <Card data={candidates} updateData={setAddCandidates} key={`${candidate.name}-${index}`} name={candidate.name} age={candidate.age} email={candidate.email} street={candidate.street} postalCode={candidate.postalCode} city={candidate.city} status={candidate.status}/>      
-            ))  
+          {candidates.map((candidate) => (
+            candidate.status === 'avslutad' && (
+              <Card key={candidate.id} id={candidate.id} data={candidates} updateData={setAddCandidates} editData={() => setIsOpen(!isOpen)} name={candidate.name} age={candidate.age} email={candidate.email} street={candidate.street} postalCode={candidate.postalCode} city={candidate.city} status={candidate.status}/>      
+            ))
           )}
+        </Content>
       </>
     ) : (
       <p>Inga kandidater</p>
@@ -86,3 +105,10 @@ const Header = styled.header`
   flex-wrap: wrap;
   align-items: center;
 `;
+
+const Content = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+`

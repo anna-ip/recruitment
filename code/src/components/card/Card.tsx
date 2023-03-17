@@ -1,27 +1,24 @@
-import React, { PropsWithChildren, ReactNode, useState } from 'react'
+import React, { PropsWithChildren, useState } from 'react'
 import styled from 'styled-components/macro';
 import { typeOfStatus } from '../../data';
 import dots from '../../assets/icons/dots.svg';
 import trash from '../../assets/icons/delete.svg';
 import edit from '../../assets/icons/edit.svg';
-
-type StatusType = 'kontakt' | 'dialog' | 'intervju' | 'erbjudande' | 'avslutad'
-
-interface PillProps {
-  children?: ReactNode;
-  status: StatusType | string;
-  label?: StatusType | string;
-}
-
-interface CardProps extends PillProps {
+import { Pill } from '../pill';
+import { StatusType } from '../pill/Pill';
+interface CardProps {
+  id: string;
   name: string;
   age: string;
   email: string;
   street: string;
   postalCode: string;
   city: string;
+  status: StatusType;
   updateData: (data: any) => void;
+  editData: () => void;
   data: {
+    id: string;
     age: string;
     city: string;
     email: string;
@@ -30,34 +27,35 @@ interface CardProps extends PillProps {
     status: string;
     street: string;
 }[];
-  
-}
+};
 
-// Card with info and status pills
-
-export const Card = ({name, age, email, street, postalCode, city, status, data, updateData}: PropsWithChildren <CardProps>) => {
+export const Card = ({id, name, age, email, street, postalCode, city, status, data, updateData, editData}: PropsWithChildren <CardProps>) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
-  const handleDeleteData = (n: string) => {
-    console.log('Delete Candidate')
-
-    const newValue = data.filter((e) => e.name !== n);
-    console.log(newValue);
+  const handleDeleteData = (value: string) => {
+    const newValue = data.filter((f) => f.id !== value);
     updateData(newValue);
   }
 
+  const handleUpdateStatus = (idValue: string, value: string) => {
+    const newState = data.map(obj =>
+      obj.id === idValue ? { ...obj, status: value } : obj
+  );
+    updateData(newState);
+  }
+
   return (
-    <Container >
+    <Container>
       <Row>
-      <Info><LabelWrapper><Text>namn:</Text></LabelWrapper>{name}</Info>
+      <Info ><LabelWrapper ><Text>namn:</Text></LabelWrapper>{name}</Info>
      {!isOpen && 
      <IconButton onClick={() => setIsOpen(!isOpen)}>
         <Icon src={dots} alt={dots}/>
       </IconButton>}
      {isOpen &&
       <MoreWrapper onClick={() => setIsOpen(!open)}>
-        <DeleteButton onClick={() => handleDeleteData(name)}><Icon src={trash} alt='Trash can'/></DeleteButton>
-        <EditButton onClick={() => console.log('Edit Candidate')}><Icon src={edit} alt={dots}/></EditButton>
+        <DeleteButton onClick={() => handleDeleteData(id)}><Icon src={trash} alt='Trash can'/></DeleteButton>
+        <EditButton onClick={editData}><Icon src={edit} alt={dots}/></EditButton>
       </MoreWrapper>
       }
       </Row>
@@ -65,22 +63,21 @@ export const Card = ({name, age, email, street, postalCode, city, status, data, 
       <Info><LabelWrapper><Text>email:</Text></LabelWrapper> {email}</Info>
  
       <Adress>
-      <Info><LabelWrapper><Text>adress:</Text></LabelWrapper></Info>
-      <Column>
-      <Info>{street}</Info>
-      <City>
-      <Info>{postalCode}</Info>
-      <Info>{city}</Info>
-      </City>
-      </Column>
+        <Info><LabelWrapper><Text>adress:</Text></LabelWrapper></Info>
+        <Column>
+          <Info>{street}</Info>
+          <City>
+            <Info>{postalCode}</Info>
+            <Info>{city}</Info>
+          </City>
+        </Column>
       </Adress>
   
       <PillContainer>
-      <LabelWrapper><Text>status:</Text></LabelWrapper>
-      {typeOfStatus?.map((s, index) => (
-          <Pill key={`${s}-${index}`} label={s} status={status}>{s}</Pill>
-          ))}
-        
+        <LabelWrapper><Text>status:</Text></LabelWrapper>
+        {typeOfStatus?.map((s, index) => (
+          <Pill updateStatus={() => handleUpdateStatus(id, s)} key={`${s}-${index}`} label={s} status={status}/>
+        ))}
       </PillContainer>
     </Container>
   )
@@ -90,6 +87,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  width: 90%;
   background: white;
   border-radius: 8px;
   border: 1px solid black;
@@ -108,14 +106,16 @@ const IconButton = styled.button`
   align-self: end;
   background: transparent;
   border: none;
-  padding: 0.3rem;
+  padding: 0.2rem;
   cursor: pointer;
 `;
 
 const DeleteButton = styled(IconButton)`
+  /* padding: 0.2rem; */
 `;
 
 const EditButton = styled(IconButton)`
+  /* padding: 0.2rem; */
 `;
 
 const Icon = styled.img`
@@ -128,7 +128,6 @@ const MoreWrapper = styled.div`
   flex-direction: row;
   gap: 1rem;
   padding: 0 1rem;
-  background-color: yellow;
   border: 1px solid black;
 `
 
@@ -140,6 +139,7 @@ const LabelWrapper = styled.div`
 const Info = styled.div`
   display: flex;
   flex-direction: row;
+  padding-bottom: 0.2rem;
 `;
 
 const Text = styled.p`
@@ -165,27 +165,10 @@ const City = styled.div`
   gap: 10px;
 `;
 
-const Pill = styled.div<PillProps>`
-  border-radius: 15px;
-  border: 1px solid black;
-  padding: 0 8px;
-  margin: 0.5rem 0;
-  text-transform: capitalize;
-  ${(p) => 
-  (p.label === 'avslutad' && 'background-color: #baf3ba') ||
-  (p.label === 'dialog' && 'background-color: #adadff') ||
-  (p.label === 'kontakt' && 'background-color: #eeb5ee') ||
-  (p.label === 'erbjudande' && 'background-color: #ffc252') ||
-  (p.label === 'intervju' && 'background-color: pink') ||
-  ('background-color: grey')
-  };
-  opacity: ${(p) => p.status === p.label ? 1 : 0.5};
-  cursor: pointer;
-`;
-
 const PillContainer = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  gap: 4px;
+  gap: 6px;
+  align-items: center;
 `;

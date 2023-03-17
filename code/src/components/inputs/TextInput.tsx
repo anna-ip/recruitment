@@ -1,8 +1,9 @@
 import { ReactNode } from 'react';
 import styled from 'styled-components/macro';
 import magnifier from '../../assets/icons/magnifier.svg';
+import cross from '../../assets/icons/cross.svg';
 
-type InputType = 'text' | 'password' | 'email';
+type InputType = 'text' | 'search' | 'password' | 'email';
 
 interface TextInputProps {
   type: InputType;
@@ -25,7 +26,7 @@ export const TextInput = ({
   value,
   onChange,
   icon = false,
-  inputText,
+  inputText
 }: TextInputProps) => {
   return (
     <InputContainer>
@@ -65,7 +66,6 @@ const StyledLabel = styled.label`
 const Icon = styled.img`
   width: 19px;
   height: auto;
-  margin-left: 10px;
 `;
 
 const StyledInput = styled.div`
@@ -76,7 +76,7 @@ const StyledInput = styled.div`
   width: 256px;
   height: 28px;
   border: 1px solid lightgray;
-  border-radius: 10px;
+  border-radius: 24px;
   padding: 10px 24px;
 `;
 
@@ -93,9 +93,27 @@ const Input = styled.input`
     outline: none;
     border-color: none;
   }
+
+  ::-webkit-search-cancel-button{
+    position:relative;
+    right:0px; 
+    -webkit-appearance: none;
+    height: 16px;
+    width: 16px;
+    background-size: contain;
+    background:url(${cross});
+  }
+
 `;
 
 const InputText = styled.p`
   font-size: 16px;
   margin: 0;
 `;
+
+const ResetButton = styled.button`
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0 5px;
+`

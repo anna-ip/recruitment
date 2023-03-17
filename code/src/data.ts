@@ -1,5 +1,6 @@
 export const data = [
-  { age: '40',
+  { id: 'candidate-3682ac107e53b',
+    age: '40',
     city: 'Hello',
     email: 'dabsm@bsfa',
     name: 'Anna',
@@ -7,7 +8,8 @@ export const data = [
     status: 'dialog',
     street: 'Eva B'
   },
-  {
+  { 
+    id: 'candidate-9c8d20bcfea9d',
     age: '23',
     city: 'Celeryville',
     email: 'faithlloyd@flotonic.com',
@@ -16,7 +18,8 @@ export const data = [
     status: 'kontakt',
     street: 'Moultrie Street',
   },
-  {
+  { 
+    id: 'candidate-e446fcc3defc3',
     age: '59',
     city: 'Vernon',
     email: 'banksdurham@flotonic.com',
@@ -26,6 +29,7 @@ export const data = [
     street: 'Quentin Street',
   },
   {
+    id: 'candidate-3682ac107e56a',
     age: '28',
     name: 'Mcknight Rivas',
     email: 'mcknightrivas@flotonic.com',
@@ -35,6 +39,7 @@ export const data = [
     city: 'Strykersville'
   },
   {
+    id: 'candidate-3682ac107e5a8',
     age: '48',
     name: 'Lancaster Hughes',
     email: 'lancasterhughes@flotonic.com',
@@ -44,6 +49,7 @@ export const data = [
     city: 'Kula'
   },
   {
+    id: 'candidate-3682ac107e57s',
     age: '36',
     name: 'Lee Elliott',
     email: 'leeelliott@flotonic.com',

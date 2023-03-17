@@ -3,7 +3,10 @@ import styled from 'styled-components';
 
 type ButtonType = 'button' | 'submit' | 'reset';
 
-interface ButtonProps {
+interface LabelProps {
+  hasIcon?: boolean;
+}
+interface ButtonProps extends LabelProps {
   type?: ButtonType;
   onClick: (e: SyntheticEvent) => void;
   width?: string;
@@ -24,7 +27,7 @@ export const Button = ({
     >
       <>
       {icon && <Icon src={icon} alt={icon}/>}
-      <StyledLabel>
+      <StyledLabel hasIcon={icon ? true : false}>
         {children}
       </StyledLabel>
       </>
@@ -40,9 +43,12 @@ const StyledButton = styled.button`
   justify-content: center;
   align-items: center;
   border-radius: 50px;
-  margin-top: 15px;
   text-decoration: none;
   cursor: pointer;
+
+  /* @media (min-width: 768px){
+    width: 200px;
+  } */
 `;
 
 const Icon = styled.img`
@@ -50,10 +56,15 @@ const Icon = styled.img`
   height: 1.5rem;
 `;
 
-const StyledLabel = styled.p`
+const StyledLabel = styled.p<LabelProps>`
   font-weight: 700;
   font-size:  1rem;
   text-decoration: none;
   padding: 0;
   margin: 0;
+  /* display: ${(p) => p.hasIcon && 'none'};
+
+  @media (min-width: 768px){
+    display: block;
+  } */
 `;
