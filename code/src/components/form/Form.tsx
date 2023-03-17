@@ -1,8 +1,9 @@
-import {ChangeEvent, useState} from 'react';
+import {ChangeEvent, useState, FormEvent} from 'react';
 import styled from 'styled-components/macro';
 import { TextInput } from '../inputs';
 import { RadioButton } from '../inputs/RadioButton';
 import { Button } from '../button';
+import { data } from '../../data';
 
 // Add Candidate information
 // Name
@@ -13,19 +14,26 @@ import { Button } from '../button';
 
 // Submit data and push to data or local storage
 
-export const Form = () => {
+interface FormProps {
+  setIsOpen: (open: boolean) => void;
+  setAddCandidates: (candidates: any) => void; 
+}
+
+export const Form = ({ setIsOpen, setAddCandidates }: FormProps) => {
   const [candidate, setCandidate] = useState({})
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setCandidate({...candidate, [event?.target.name]: event?.target.value});
   }
 
-  const handleSubmit = () => {
+  const handleSubmit = (event: FormEvent) => {
     event?.preventDefault();
     console.log('Submit form', candidate);
+    setAddCandidates((current: any) => [candidate, ...current]);
+    setIsOpen(false);
   }
+
   return (
-    <Background>
     <StyledForm onSubmit={handleSubmit}>
       <Title>Add Candidate</Title>
       <TextInput id='name' type='text' name='name' label='Name' placeholder='Name' onChange={handleChange} />
@@ -45,20 +53,13 @@ export const Form = () => {
       </RadioButtonGroup>
       <Button type='submit' onClick={handleSubmit}>Add Candidate</Button>
     </StyledForm>
-    </Background>
+   
   )
 }
 
-
-const Background = styled.div`
-  display: flex;
-  justify-content: center;
-  background: grey;
-`
-
 const StyledForm = styled.form`
   align-items: center;
-  width: 50%;
+  width: 500px;
   height: 100%;
   background: #ffffff;
   border-radius: 10px;

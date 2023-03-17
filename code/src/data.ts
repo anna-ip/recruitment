@@ -54,3 +54,11 @@ export const data = [
   }
   
 ]
+
+export const typeOfStatus = [
+  'kontakt',
+  'intervju',
+  'erbjudande',
+  'dialog',
+  'avslutad',
+]

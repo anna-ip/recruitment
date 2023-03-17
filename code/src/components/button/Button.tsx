@@ -8,11 +8,13 @@ interface ButtonProps {
   onClick: (e: SyntheticEvent) => void;
   width?: string;
   marginLeft?: number;
+  icon?: string; 
 }
 
 export const Button = ({
   type = 'button',
   onClick,
+  icon,
   children,
 }: PropsWithChildren<ButtonProps>) => {
   return (
@@ -20,9 +22,12 @@ export const Button = ({
       type={type}
       onClick={onClick}
     >
+      <>
+      {icon && <Icon src={icon} alt={icon}/>}
       <StyledLabel>
         {children}
       </StyledLabel>
+      </>
     </StyledButton>
   );
 };
@@ -30,9 +35,8 @@ export const Button = ({
 const StyledButton = styled.button`
   display: flex;
   background-color: white;
-  width: '150px';
-  height: 60px;
   width: 200px;
+  height: 50px;
   justify-content: center;
   align-items: center;
   border-radius: 50px;
@@ -41,8 +45,15 @@ const StyledButton = styled.button`
   cursor: pointer;
 `;
 
+const Icon = styled.img`
+  width: 1.5rem;
+  height: 1.5rem;
+`;
+
 const StyledLabel = styled.p`
   font-weight: 700;
   font-size:  1rem;
   text-decoration: none;
+  padding: 0;
+  margin: 0;
 `;
