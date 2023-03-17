@@ -10,7 +10,7 @@ interface TextInputProps {
   label?: string;
   id?: any;
   name?: string;
-  placeholder: string;
+  placeholder?: string;
   value?: string;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   icon?: boolean;
@@ -26,15 +26,11 @@ export const TextInput = ({
   value,
   onChange,
   icon = false,
-  inputText
+  inputText,
 }: TextInputProps) => {
   return (
     <InputContainer>
-      {label && (
-        <StyledLabel htmlFor={`${id}`}>
-          {label}
-        </StyledLabel>
-      )}
+      {label && <StyledLabel htmlFor={`${id}`}>{label}</StyledLabel>}
       <StyledInput>
         {icon && <Icon src={magnifier} alt='Magnifier icon' />}
         <Input
@@ -55,12 +51,17 @@ const InputContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  width: 100%;
   margin: 5px;
+
+  @media (min-width: 425px) {
+    width: 50%;
+  }
 `;
 
 const StyledLabel = styled.label`
   font-size: 16px;
-  margin:  0;
+  margin: 0 0 2px 16px;
 `;
 
 const Icon = styled.img`
@@ -73,11 +74,10 @@ const StyledInput = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  width: 256px;
-  height: 28px;
+  width: 85%;
   border: 1px solid lightgray;
   border-radius: 24px;
-  padding: 10px 24px;
+  padding: 16px 24px;
 `;
 
 const Input = styled.input`
@@ -94,16 +94,15 @@ const Input = styled.input`
     border-color: none;
   }
 
-  ::-webkit-search-cancel-button{
-    position:relative;
-    right:0px; 
+  ::-webkit-search-cancel-button {
+    position: relative;
+    right: 0px;
     -webkit-appearance: none;
     height: 16px;
     width: 16px;
     background-size: contain;
-    background:url(${cross});
+    background: url(${cross});
   }
-
 `;
 
 const InputText = styled.p`
@@ -116,4 +115,4 @@ const ResetButton = styled.button`
   border: none;
   cursor: pointer;
   padding: 0 5px;
-`
+`;

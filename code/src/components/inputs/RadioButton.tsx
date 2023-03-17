@@ -4,7 +4,7 @@ interface RadioButtonProps {
   label: string;
   id: string | undefined;
   value: string;
-  defaultChecked?: boolean;
+  checked?: boolean;
   name: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
@@ -13,7 +13,7 @@ export const RadioButton = ({
   label,
   id,
   value,
-  defaultChecked,
+  checked,
   name,
   onChange,
 }: RadioButtonProps) => {
@@ -22,7 +22,7 @@ export const RadioButton = ({
       <StyledRadioButton
         type='radio'
         id={id}
-        defaultChecked={defaultChecked}
+        checked={checked}
         name={name}
         value={value}
         onChange={onChange}

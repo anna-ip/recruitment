@@ -3,8 +3,10 @@ import { Form } from '../../components/form';
 
 interface AddCandidateProps {
   setIsOpen: (open: boolean) => void;
-  setAddCandidates: (candidates: any) => void; 
-  data?:{
+  setAddCandidates: (candidates: any) => void;
+  isEditing: boolean;
+  setIsEditing: (edit: boolean) => void;
+  data?: {
     id: string;
     age: string;
     city: string;
@@ -13,19 +15,20 @@ interface AddCandidateProps {
     postalCode: string;
     status: string;
     street: string;
-};
+  };
 }
 
-export const AddCandidate = ({setIsOpen, setAddCandidates, data} : AddCandidateProps) => {
+export const AddCandidate = ({ setIsOpen, setAddCandidates, data, isEditing, setIsEditing }: AddCandidateProps) => {
   return (
     <Background>
-      <Form data={data} setIsOpen={setIsOpen} setAddCandidates={setAddCandidates}/>
+      <Form data={data} isEditing={isEditing} setIsEditing={setIsEditing} setIsOpen={setIsOpen} setAddCandidates={setAddCandidates} />
     </Background>
-  )
-}
+  );
+};
 
 const Background = styled.div`
   display: flex;
   justify-content: center;
-  background: grey;
-`
+  align-items: center;
+  height: 100%;
+`;

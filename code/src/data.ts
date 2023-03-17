@@ -1,14 +1,15 @@
 export const data = [
-  { id: 'candidate-3682ac107e53b',
+  {
+    id: 'candidate-3682ac107e53b',
     age: '40',
     city: 'Hello',
     email: 'dabsm@bsfa',
     name: 'Anna',
-    postalCode: '12365', 
+    postalCode: '12365',
     status: 'dialog',
-    street: 'Eva B'
+    street: 'Eva B',
   },
-  { 
+  {
     id: 'candidate-9c8d20bcfea9d',
     age: '23',
     city: 'Celeryville',
@@ -18,7 +19,7 @@ export const data = [
     status: 'kontakt',
     street: 'Moultrie Street',
   },
-  { 
+  {
     id: 'candidate-e446fcc3defc3',
     age: '59',
     city: 'Vernon',
@@ -36,7 +37,7 @@ export const data = [
     street: 'Coyle Street',
     postalCode: '88410',
     status: 'erbjudande',
-    city: 'Strykersville'
+    city: 'Strykersville',
   },
   {
     id: 'candidate-3682ac107e5a8',
@@ -44,9 +45,9 @@ export const data = [
     name: 'Lancaster Hughes',
     email: 'lancasterhughes@flotonic.com',
     street: 'Hawthorne Street',
-    postalCode:'64874',
+    postalCode: '64874',
     status: 'avslutad',
-    city: 'Kula'
+    city: 'Kula',
   },
   {
     id: 'candidate-3682ac107e57s',
@@ -56,15 +57,8 @@ export const data = [
     street: 'Will Place',
     postalCode: '66328',
     status: 'dialog',
-    city: 'Carbonville'
-  }
-  
-]
+    city: 'Carbonville',
+  },
+];
 
-export const typeOfStatus = [
-  'kontakt',
-  'intervju',
-  'erbjudande',
-  'dialog',
-  'avslutad',
-]
+export const typeOfStatus = ['kontakt', 'intervju', 'erbjudande', 'dialog', 'avslutad'];

@@ -1,4 +1,4 @@
-import React, { PropsWithChildren, useState } from 'react'
+import React, { PropsWithChildren, useState } from 'react';
 import styled from 'styled-components/macro';
 import { typeOfStatus } from '../../data';
 import dots from '../../assets/icons/dots.svg';
@@ -16,7 +16,7 @@ interface CardProps {
   city: string;
   status: StatusType;
   updateData: (data: any) => void;
-  editData: () => void;
+  editData: (value: any) => void;
   data: {
     id: string;
     age: string;
@@ -26,72 +26,121 @@ interface CardProps {
     postalCode: string;
     status: string;
     street: string;
-}[];
-};
+  }[];
+}
 
-export const Card = ({id, name, age, email, street, postalCode, city, status, data, updateData, editData}: PropsWithChildren <CardProps>) => {
+export const Card = ({
+  id,
+  name,
+  age,
+  email,
+  street,
+  postalCode,
+  city,
+  status,
+  data,
+  updateData,
+  editData,
+}: PropsWithChildren<CardProps>) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const handleDeleteData = (value: string) => {
     const newValue = data.filter((f) => f.id !== value);
     updateData(newValue);
-  }
+  };
 
   const handleUpdateStatus = (idValue: string, value: string) => {
-    const newState = data.map(obj =>
-      obj.id === idValue ? { ...obj, status: value } : obj
-  );
+    const newState = data.map((obj) => (obj.id === idValue ? { ...obj, status: value } : obj));
     updateData(newState);
-  }
+  };
 
   return (
     <Container>
       <Row>
-      <Info ><LabelWrapper ><Text>namn:</Text></LabelWrapper>{name}</Info>
-     {!isOpen && 
-     <IconButton onClick={() => setIsOpen(!isOpen)}>
-        <Icon src={dots} alt={dots}/>
-      </IconButton>}
-     {isOpen &&
-      <MoreWrapper onClick={() => setIsOpen(!open)}>
-        <DeleteButton onClick={() => handleDeleteData(id)}><Icon src={trash} alt='Trash can'/></DeleteButton>
-        <EditButton onClick={editData}><Icon src={edit} alt={dots}/></EditButton>
-      </MoreWrapper>
-      }
+        <Info>
+          <LabelWrapper>
+            <Text>namn:</Text>
+          </LabelWrapper>
+          <Text>{name}</Text>
+        </Info>
+        {!isOpen && (
+          <IconButton onClick={() => setIsOpen(!isOpen)}>
+            <Icon src={dots} alt={dots} />
+          </IconButton>
+        )}
+        {isOpen && (
+          <MoreWrapper onClick={() => setIsOpen(!open)}>
+            <DeleteButton onClick={() => handleDeleteData(id)}>
+              <Icon src={trash} alt='Trash can' />
+            </DeleteButton>
+            <EditButton onClick={editData}>
+              <Icon src={edit} alt={dots} />
+            </EditButton>
+          </MoreWrapper>
+        )}
       </Row>
-      <Info><LabelWrapper><Text>ålder:</Text></LabelWrapper> {age}</Info>
-      <Info><LabelWrapper><Text>email:</Text></LabelWrapper> {email}</Info>
- 
+      <Info>
+        <LabelWrapper>
+          <Text>ålder:</Text>
+        </LabelWrapper>
+        <Text>{age}</Text>
+      </Info>
+      <Info>
+        <LabelWrapper>
+          <Text>email:</Text>
+        </LabelWrapper>
+        <Text>{email}</Text>
+      </Info>
+
       <Adress>
-        <Info><LabelWrapper><Text>adress:</Text></LabelWrapper></Info>
+        <Info>
+          <LabelWrapper>
+            <Text>adress:</Text>
+          </LabelWrapper>
+        </Info>
         <Column>
-          <Info>{street}</Info>
+          <Info>
+            <Text>{street}</Text>
+          </Info>
           <City>
-            <Info>{postalCode}</Info>
-            <Info>{city}</Info>
+            <Info>
+              <Text>{postalCode}</Text>
+            </Info>
+            <Info>
+              <Text>{city}</Text>
+            </Info>
           </City>
         </Column>
       </Adress>
-  
+
       <PillContainer>
-        <LabelWrapper><Text>status:</Text></LabelWrapper>
+        <LabelWrapper>
+          <Text>status:</Text>
+        </LabelWrapper>
+        <PillWrapper>
         {typeOfStatus?.map((s, index) => (
-          <Pill updateStatus={() => handleUpdateStatus(id, s)} key={`${s}-${index}`} label={s} status={status}/>
+          <Pill
+            updateStatus={() => handleUpdateStatus(id, s)}
+            key={`${s}-${index}`}
+            label={s}
+            status={status}
+          />
         ))}
+        </PillWrapper>
       </PillContainer>
     </Container>
-  )
-}
+  );
+};
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  width: 90%;
-  background: white;
-  border-radius: 8px;
-  border: 1px solid black;
-  padding: 10px;
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 7px 10px 30px -6px rgba(202, 201, 201, 0.52);
+
 `;
 
 const Row = styled.div`
@@ -99,7 +148,7 @@ const Row = styled.div`
   flex-direction: row;
   width: 100%;
   justify-content: space-between;
-`
+`;
 
 const IconButton = styled.button`
   display: flex;
@@ -128,8 +177,7 @@ const MoreWrapper = styled.div`
   flex-direction: row;
   gap: 1rem;
   padding: 0 1rem;
-  border: 1px solid black;
-`
+`;
 
 const LabelWrapper = styled.div`
   text-align: left;
@@ -145,7 +193,8 @@ const Info = styled.div`
 const Text = styled.p`
   padding: 0;
   margin: 0;
-`
+  font-family: 'Inter';
+`;
 
 const Adress = styled.div`
   display: flex;
@@ -168,7 +217,13 @@ const City = styled.div`
 const PillContainer = styled.div`
   display: flex;
   flex-direction: row;
+  align-items: baseline;
+  gap: 10px;
+`;
+
+const PillWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
   flex-wrap: wrap;
-  gap: 6px;
-  align-items: center;
+  gap: 10px;
 `;
