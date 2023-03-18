@@ -9,14 +9,7 @@ interface RadioButtonProps {
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-export const RadioButton = ({
-  label,
-  id,
-  value,
-  checked,
-  name,
-  onChange,
-}: RadioButtonProps) => {
+export const RadioButton = ({ label, id, value, checked, name, onChange }: RadioButtonProps) => {
   return (
     <RadioButtonContainer>
       <StyledRadioButton
@@ -65,4 +58,5 @@ const StyledRadioButton = styled.input`
 const Label = styled.label`
   font-size: 1rem;
   margin: 10px 0 10px 12px;
+  text-transform: capitalize;
 `;

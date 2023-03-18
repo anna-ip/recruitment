@@ -32,13 +32,13 @@ export const Button = ({
 
 const StyledButton = styled.button<StyleButtonProps>`
   display: flex;
-  background-color: ${(p) => p.inverted ? '#ab57ab': '#ffffff'};
+  background-color: ${(p) => (p.inverted ? '#ab57ab' : '#ffffff')};
   width: 100%;
   height: 50px;
   justify-content: center;
   align-items: center;
   border-radius: 50px;
-  border: ${(p) => p.inverted ? '0px' : ' 1px solid #313131'};
+  border: ${(p) => (p.inverted ? '0px' : ' 1px solid #313131')};
   text-decoration: none;
   cursor: pointer;
 
@@ -57,7 +57,7 @@ const StyledLabel = styled.p<StyleButtonProps>`
   font-weight: 600;
   font-size: 1rem;
   font-family: 'Inter';
-  color: ${(p) => p.inverted ? '#ffffff' : '#313131'};
+  color: ${(p) => (p.inverted ? '#ffffff' : '#313131')};
   text-decoration: none;
   padding: 0;
   margin: 0;

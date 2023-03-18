@@ -1,7 +1,7 @@
 import React from 'react';
 import { Candidates } from './pages/candidates';
 
-function App() {
+const App = () => {
   return <Candidates />;
 }
 

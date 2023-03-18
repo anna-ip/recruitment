@@ -8,7 +8,7 @@ type InputType = 'text' | 'search' | 'password' | 'email';
 interface TextInputProps {
   type: InputType;
   label?: string;
-  id?: any;
+  id?: string;
   name?: string;
   placeholder?: string;
   value?: string;
@@ -108,11 +108,4 @@ const Input = styled.input`
 const InputText = styled.p`
   font-size: 16px;
   margin: 0;
-`;
-
-const ResetButton = styled.button`
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-  padding: 0 5px;
 `;

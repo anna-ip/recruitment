@@ -3,6 +3,7 @@ import styled from 'styled-components/macro';
 import { TextInput } from '../inputs';
 import { RadioButton } from '../inputs/RadioButton';
 import { Button } from '../button';
+import { typeOfStatus } from '../../data';
 interface FormProps {
   setIsOpen: (open: boolean) => void;
   setAddCandidates: (candidates: any) => void;
@@ -21,17 +22,20 @@ interface FormProps {
 }
 
 export const Form = ({ setIsOpen, setAddCandidates, data, isEditing, setIsEditing }: FormProps) => {
-  const [candidate, setCandidate] = useState(isEditing && data ? data : 
-    {
-    id: `candidate-${Math.random().toString(16).slice(2)}`,
-    age: '',
-    city: '',
-    email: '',
-    name: '',
-    postalCode: '',
-    status: '',
-    street: '',
-  });
+  const [candidate, setCandidate] = useState(
+    isEditing && data
+      ? data
+      : {
+          id: `candidate-${Math.random().toString(16).slice(2)}`,
+          age: '',
+          city: '',
+          email: '',
+          name: '',
+          postalCode: '',
+          status: '',
+          street: '',
+        },
+  );
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setCandidate({ ...candidate, [event?.target.name]: event?.target.value });
@@ -41,9 +45,10 @@ export const Form = ({ setIsOpen, setAddCandidates, data, isEditing, setIsEditin
     event?.preventDefault();
 
     setAddCandidates((current: any) => {
-    const newValue = current.filter((f: any) => f.id !== candidate.id);
-    return [candidate, ...newValue]
-  });
+      const newValue = current.filter((f: any) => f.id !== candidate.id);
+      return [candidate, ...newValue];
+    });
+
     setIsEditing(false);
     setIsOpen(false);
   };
@@ -51,7 +56,7 @@ export const Form = ({ setIsOpen, setAddCandidates, data, isEditing, setIsEditin
   const handleClose = () => {
     setIsEditing(false);
     setIsOpen(false);
-  }
+  };
 
   return (
     <StyledForm onSubmit={handleSubmit}>
@@ -105,50 +110,26 @@ export const Form = ({ setIsOpen, setAddCandidates, data, isEditing, setIsEditin
         onChange={handleChange}
       />
 
-   { !isEditing &&
-     <RadioButtonGroup>
-      <SubTitle>Status</SubTitle>
-        <RadioButton
-          id='kontakt'
-          value='kontakt'
-          label='Kontakt'
-          name='status'
-          onChange={handleChange}
-        />
-        <RadioButton
-          id='dialog'
-          value='dialog'
-          label='Dialog'
-          name='status'
-          onChange={handleChange}
-        />
-        <RadioButton
-          id='intervju'
-          value='intervju'
-          label='Intervju'
-          name='status'
-          onChange={handleChange}
-        />
-        <RadioButton
-          id='erbjudande'
-          value='erbjudande'
-          label='Erbjudande'
-          name='status'
-          onChange={handleChange}
-        />
-        <RadioButton
-          id='avslutad'
-          value='avslutad'
-          label='Avslutad'
-          name='status'
-          onChange={handleChange}
-        />
-      </RadioButtonGroup>}
+      {!isEditing && (
+        <RadioButtonGroup>
+          <SubTitle>Status</SubTitle>
+          {typeOfStatus.map((status, index) => (
+            <RadioButton
+              key={`radio-${index}`}
+              id={status}
+              value={status}
+              label={status}
+              name='status'
+              onChange={handleChange}
+            />
+          ))}
+        </RadioButtonGroup>
+      )}
       <ButtonWrapper>
         <Button type='button' onClick={handleClose}>
           Tillbaka
         </Button>
-        <Button type='submit' onClick={handleSubmit}>
+        <Button type='submit' onClick={handleSubmit} inverted>
           {isEditing ? 'Uppdatera' : 'Lägg till'}
         </Button>
       </ButtonWrapper>
@@ -162,7 +143,7 @@ const StyledForm = styled.form`
   justify-content: center;
   align-items: center;
   width: 500px;
-  height: fit-content;
+  height: auto;
   background: #ffffff;
   border-radius: 10px;
   padding: 1rem;
@@ -189,10 +170,12 @@ const ButtonWrapper = styled.div`
   flex-direction: column;
   justify-content: space-between;
   flex-wrap: wrap;
+  width: 100%;
   gap: 1rem;
   margin-top: 2rem;
 
-  @media (min-width: 768px) {
+  @media (min-width: 425px) {
     flex-direction: row;
+    gap: 0.5rem;
   }
 `;

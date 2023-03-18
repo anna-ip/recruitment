@@ -1,9 +1,9 @@
 import styled from 'styled-components/macro';
 import { Form } from '../../components/form';
-
+import { CandidateType } from '../../data';
 interface AddCandidateProps {
   setIsOpen: (open: boolean) => void;
-  setAddCandidates: (candidates: any) => void;
+  setAddCandidates: (candidates: CandidateType[]) => void;
   isEditing: boolean;
   setIsEditing: (edit: boolean) => void;
   data?: {
@@ -18,10 +18,22 @@ interface AddCandidateProps {
   };
 }
 
-export const AddCandidate = ({ setIsOpen, setAddCandidates, data, isEditing, setIsEditing }: AddCandidateProps) => {
+export const AddCandidate = ({
+  setIsOpen,
+  setAddCandidates,
+  data,
+  isEditing,
+  setIsEditing,
+}: AddCandidateProps) => {
   return (
     <Background>
-      <Form data={data} isEditing={isEditing} setIsEditing={setIsEditing} setIsOpen={setIsOpen} setAddCandidates={setAddCandidates} />
+      <Form
+        data={data}
+        isEditing={isEditing}
+        setIsEditing={setIsEditing}
+        setIsOpen={setIsOpen}
+        setAddCandidates={setAddCandidates}
+      />
     </Background>
   );
 };
@@ -30,5 +42,5 @@ const Background = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100%;
+  padding: 1rem;
 `;

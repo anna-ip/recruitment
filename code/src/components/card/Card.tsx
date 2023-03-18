@@ -1,6 +1,6 @@
 import React, { PropsWithChildren, useState } from 'react';
 import styled from 'styled-components/macro';
-import { typeOfStatus } from '../../data';
+import { CandidateType, typeOfStatus } from '../../data';
 import dots from '../../assets/icons/dots.svg';
 import trash from '../../assets/icons/delete.svg';
 import edit from '../../assets/icons/edit.svg';
@@ -15,8 +15,9 @@ interface CardProps {
   postalCode: string;
   city: string;
   status: StatusType;
-  updateData: (data: any) => void;
-  editData: (value: any) => void;
+  updateData: (data: CandidateType[]) => void;
+  editData: () => void;
+  handleDelete: () => void;
   data: {
     id: string;
     age: string;
@@ -41,13 +42,9 @@ export const Card = ({
   data,
   updateData,
   editData,
+  handleDelete,
 }: PropsWithChildren<CardProps>) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
-
-  const handleDeleteData = (value: string) => {
-    const newValue = data.filter((f) => f.id !== value);
-    updateData(newValue);
-  };
 
   const handleUpdateStatus = (idValue: string, value: string) => {
     const newState = data.map((obj) => (obj.id === idValue ? { ...obj, status: value } : obj));
@@ -70,12 +67,12 @@ export const Card = ({
         )}
         {isOpen && (
           <MoreWrapper onClick={() => setIsOpen(!open)}>
-            <DeleteButton onClick={() => handleDeleteData(id)}>
+            <IconButton onClick={handleDelete}>
               <Icon src={trash} alt='Trash can' />
-            </DeleteButton>
-            <EditButton onClick={editData}>
+            </IconButton>
+            <IconButton onClick={editData}>
               <Icon src={edit} alt={dots} />
-            </EditButton>
+            </IconButton>
           </MoreWrapper>
         )}
       </Row>
@@ -118,14 +115,14 @@ export const Card = ({
           <Text>status:</Text>
         </LabelWrapper>
         <PillWrapper>
-        {typeOfStatus?.map((s, index) => (
-          <Pill
-            updateStatus={() => handleUpdateStatus(id, s)}
-            key={`${s}-${index}`}
-            label={s}
-            status={status}
-          />
-        ))}
+          {typeOfStatus?.map((s, index) => (
+            <Pill
+              updateStatus={() => handleUpdateStatus(id, s)}
+              key={`${s}-${index}`}
+              label={s}
+              status={status}
+            />
+          ))}
         </PillWrapper>
       </PillContainer>
     </Container>
@@ -140,7 +137,6 @@ const Container = styled.div`
   border-radius: 12px;
   padding: 16px;
   box-shadow: 7px 10px 30px -6px rgba(202, 201, 201, 0.52);
-
 `;
 
 const Row = styled.div`
@@ -157,14 +153,6 @@ const IconButton = styled.button`
   border: none;
   padding: 0.2rem;
   cursor: pointer;
-`;
-
-const DeleteButton = styled(IconButton)`
-  /* padding: 0.2rem; */
-`;
-
-const EditButton = styled(IconButton)`
-  /* padding: 0.2rem; */
 `;
 
 const Icon = styled.img`

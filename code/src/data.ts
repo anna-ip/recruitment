@@ -62,3 +62,14 @@ export const data = [
 ];
 
 export const typeOfStatus = ['kontakt', 'intervju', 'erbjudande', 'dialog', 'avslutad'];
+
+export type CandidateType = {
+  id: string;
+  age: string;
+  city: string;
+  email: string;
+  name: string;
+  postalCode: string;
+  status: string;
+  street: string;
+};
