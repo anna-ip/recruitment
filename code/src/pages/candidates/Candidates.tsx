@@ -8,6 +8,7 @@ import { CandidateType, data } from '../../data';
 export const Candidates = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [isEditing, setIsEditing] = useState<boolean>(false);
+  const [searchValue, setSearchValue] = useState<string>('');
   const [candidates, setAddCandidates] = useState<CandidateType[]>([...data]);
   const [candidate, setCandidate] = useState<CandidateType>({
     id: '',
@@ -18,6 +19,18 @@ export const Candidates = () => {
     postalCode: '',
     status: '',
     street: '',
+  });
+
+  const filteredData = candidates.filter((value: CandidateType) => {
+    if (searchValue === '') {
+      return value;
+    } else {
+      const newValue =
+        value.name.toLowerCase().includes(searchValue) ||
+        value.status.toLowerCase().includes(searchValue) ||
+        value.city.toLowerCase().includes(searchValue);
+      return newValue;
+    }
   });
 
   return (
@@ -32,16 +45,11 @@ export const Candidates = () => {
         />
       ) : (
         <Container>
-          <Header
-            data={data}
-            setIsOpen={setIsOpen}
-            setAddCandidates={setAddCandidates}
-            isOpen={isOpen}
-          />
+          <Header setIsOpen={setIsOpen} isOpen={isOpen} setQuery={setSearchValue} />
 
-          {candidates ? (
+          {candidates.length > 0 ? (
             <CardGroup
-              candidates={candidates}
+              candidates={filteredData}
               setAddCandidates={setAddCandidates}
               setCandidate={setCandidate}
               setIsEditing={setIsEditing}
@@ -65,6 +73,7 @@ const SubTitle = styled.h2`
   font-family: 'Poppins';
   font-size: 1.3rem;
   font-weight: 500;
+  text-align: center;
   color: #313131;
   padding: 0;
   margin: 8px 0 0 0;

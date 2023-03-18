@@ -1,11 +1,11 @@
-import { ReactNode } from 'react';
+import { ReactNode, InputHTMLAttributes } from 'react';
 import styled from 'styled-components/macro';
 import magnifier from '../../assets/icons/magnifier.svg';
 import cross from '../../assets/icons/cross.svg';
 
 type InputType = 'text' | 'search' | 'password' | 'email';
 
-interface TextInputProps {
+interface TextInputProps extends InputHTMLAttributes<HTMLInputElement> {
   type: InputType;
   label?: string;
   id?: string;

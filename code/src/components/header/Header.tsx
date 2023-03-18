@@ -1,28 +1,17 @@
-import React from 'react';
 import styled from 'styled-components/macro';
 import { TextInput } from '../inputs';
 import { Button } from '../button';
 import add from '../../assets/icons/add.svg';
-import { CandidateType } from '../../data';
-
 interface HeaderProps {
-  setAddCandidates: (data: CandidateType[]) => void;
   setIsOpen: (value: boolean) => void;
   isOpen: boolean;
-  data: CandidateType[];
+  setQuery: (query: string) => void;
 }
 
-export const Header = ({ data, setAddCandidates, setIsOpen, isOpen }: HeaderProps) => {
-  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    if (value.length <= 2) {
-      setAddCandidates([...data]);
-    } else {
-      const searchedValue = data.filter(
-        (f) => f.name === value || f.city === value || f.status === value.toLowerCase(),
-      );
-      setAddCandidates(searchedValue);
-    }
+export const Header = ({ setIsOpen, isOpen, setQuery }: HeaderProps) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const lowerCase = e.target.value.toLowerCase();
+    setQuery(lowerCase);
   };
 
   return (
@@ -33,7 +22,7 @@ export const Header = ({ data, setAddCandidates, setIsOpen, isOpen }: HeaderProp
         placeholder='Sök kandidat'
         id='sök'
         name='sök'
-        onChange={(e) => handleSearch(e)}
+        onChange={(e) => handleChange(e)}
         icon
       />
       <Button onClick={() => setIsOpen(!isOpen)} icon={add} inverted>

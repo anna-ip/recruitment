@@ -18,7 +18,6 @@ export const CardGroup = ({
   setAddCandidates,
   setCandidate,
 }: CardGroupProps) => {
-  
   const handleEdit = (value: CandidateType) => {
     setIsOpen(true);
     setIsEditing(true);

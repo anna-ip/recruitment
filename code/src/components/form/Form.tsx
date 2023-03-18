@@ -68,6 +68,7 @@ export const Form = ({ setIsOpen, setAddCandidates, data, isEditing, setIsEditin
         label='Namn'
         value={candidate.name}
         onChange={handleChange}
+        required
       />
       <TextInput
         id='age'
@@ -76,6 +77,7 @@ export const Form = ({ setIsOpen, setAddCandidates, data, isEditing, setIsEditin
         label='Ålder'
         value={candidate.age}
         onChange={handleChange}
+        required
       />
       <TextInput
         id='email'
@@ -84,6 +86,7 @@ export const Form = ({ setIsOpen, setAddCandidates, data, isEditing, setIsEditin
         label='Email'
         value={candidate.email}
         onChange={handleChange}
+        required
       />
       <TextInput
         id='street'
@@ -92,6 +95,7 @@ export const Form = ({ setIsOpen, setAddCandidates, data, isEditing, setIsEditin
         label='Gata'
         value={candidate.street}
         onChange={handleChange}
+        required
       />
       <TextInput
         id='postalCode'
@@ -100,6 +104,7 @@ export const Form = ({ setIsOpen, setAddCandidates, data, isEditing, setIsEditin
         label='Postkod'
         value={candidate.postalCode}
         onChange={handleChange}
+        required
       />
       <TextInput
         id='city'
@@ -108,6 +113,7 @@ export const Form = ({ setIsOpen, setAddCandidates, data, isEditing, setIsEditin
         label='Stad'
         value={candidate.city}
         onChange={handleChange}
+        required
       />
 
       {!isEditing && (
