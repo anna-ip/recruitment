@@ -3,6 +3,7 @@ A responsive application for recruitment processes.
 Add Candidates, update information about candidate and move between different states in the recruitment process and search.
 
 Next step:
+* Validation and Error handling 
 * Add drag and drop functionality to move candidates between different states
 * Update styling
 * Add backend, maybe Node.js
@@ -13,6 +14,8 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 * React
 * Type Script
 * Styled Components
+
+## Deployed version: recruitment-process.netlify.app
 
 ## Available Scripts
 
@@ -33,5 +36,3 @@ It correctly bundles React in production mode and optimizes the build for the be
 
 The build is minified and the filenames include the hashes.\
 Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
