@@ -1,6 +1,6 @@
 # Recruitment
 A responsive application for recruitment processes.
-Add Candidates, update information about candidate and move between different states in the recruitment process and search.
+Add Candidates, update information about candidate, delete, move between different states in the recruitment process and search.
 
 Next step:
 * Validation and Error handling 
