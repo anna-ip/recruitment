@@ -36,6 +36,18 @@ export const Form = ({ setIsOpen, setAddCandidates, data, isEditing, setIsEditin
           street: '',
         },
   );
+  const [error, setError] = useState<string>('');
+
+  const validate = (event: ChangeEvent<HTMLInputElement>) => {
+    console.log(event.target.value)
+    if (event.target.value.length < 1) {
+      setError(`Please enter ${event?.target.name}`)
+      console.log(`Please enter ${event?.target.name}`)
+    }
+    if (event.target.value === 'error') {
+      console.log(event.target.validationMessage)
+    }
+  };
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setCandidate({ ...candidate, [event?.target.name]: event?.target.value });
@@ -69,6 +81,8 @@ export const Form = ({ setIsOpen, setAddCandidates, data, isEditing, setIsEditin
         value={candidate.name}
         onChange={handleChange}
         required
+        onBlur={validate}
+        error={error}
       />
       <TextInput
         id='age'
@@ -78,6 +92,8 @@ export const Form = ({ setIsOpen, setAddCandidates, data, isEditing, setIsEditin
         value={candidate.age}
         onChange={handleChange}
         required
+        onBlur={validate}
+        error={error}
       />
       <TextInput
         id='email'
@@ -87,6 +103,8 @@ export const Form = ({ setIsOpen, setAddCandidates, data, isEditing, setIsEditin
         value={candidate.email}
         onChange={handleChange}
         required
+        onBlur={validate}
+        error={error}
       />
       <TextInput
         id='street'
@@ -96,6 +114,8 @@ export const Form = ({ setIsOpen, setAddCandidates, data, isEditing, setIsEditin
         value={candidate.street}
         onChange={handleChange}
         required
+        onBlur={validate}
+        error={error}
       />
       <TextInput
         id='postalCode'
@@ -105,6 +125,8 @@ export const Form = ({ setIsOpen, setAddCandidates, data, isEditing, setIsEditin
         value={candidate.postalCode}
         onChange={handleChange}
         required
+        onBlur={validate}
+        error={error}
       />
       <TextInput
         id='city'
@@ -114,6 +136,8 @@ export const Form = ({ setIsOpen, setAddCandidates, data, isEditing, setIsEditin
         value={candidate.city}
         onChange={handleChange}
         required
+        onBlur={validate}
+        error={error}
       />
 
       {!isEditing && (
@@ -135,7 +159,7 @@ export const Form = ({ setIsOpen, setAddCandidates, data, isEditing, setIsEditin
         <Button type='button' onClick={handleClose}>
           Tillbaka
         </Button>
-        <Button type='submit' onClick={handleSubmit} inverted>
+        <Button type='submit' inverted>
           {isEditing ? 'Uppdatera' : 'Lägg till'}
         </Button>
       </ButtonWrapper>

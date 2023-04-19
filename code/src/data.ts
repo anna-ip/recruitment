@@ -16,7 +16,7 @@ export const data = [
     email: 'faithlloyd@flotonic.com',
     name: 'Faith Lloyd',
     postalCode: '53558',
-    status: 'kontakt',
+    status: 'contact',
     street: 'Moultrie Street',
   },
   {
@@ -26,7 +26,7 @@ export const data = [
     email: 'banksdurham@flotonic.com',
     name: 'Banks Durham',
     postalCode: '48453',
-    status: 'intervju',
+    status: 'interview',
     street: 'Quentin Street',
   },
   {
@@ -36,7 +36,7 @@ export const data = [
     email: 'mcknightrivas@flotonic.com',
     street: 'Coyle Street',
     postalCode: '88410',
-    status: 'erbjudande',
+    status: 'offer',
     city: 'Strykersville',
   },
   {
@@ -46,7 +46,7 @@ export const data = [
     email: 'lancasterhughes@flotonic.com',
     street: 'Hawthorne Street',
     postalCode: '64874',
-    status: 'avslutad',
+    status: 'completed',
     city: 'Kula',
   },
   {
@@ -61,7 +61,7 @@ export const data = [
   },
 ];
 
-export const typeOfStatus = ['kontakt', 'intervju', 'erbjudande', 'dialog', 'avslutad'];
+export const typeOfStatus = ['contact', 'interview', 'offer', 'dialog', 'completed'];
 
 export type CandidateType = {
   id: string;

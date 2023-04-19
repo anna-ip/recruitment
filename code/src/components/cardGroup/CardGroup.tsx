@@ -31,11 +31,11 @@ export const CardGroup = ({
 
   return (
     <Content>
-      <SubTitle>Kontakt</SubTitle>
+      <SubTitle>Contact</SubTitle>
       {candidates &&
         candidates.map(
           (candidate) =>
-            candidate.status === 'kontakt' && (
+            candidate.status === 'contact' && (
               <Card
                 key={candidate.id}
                 id={candidate.id}
@@ -54,10 +54,10 @@ export const CardGroup = ({
             ),
         )}
 
-      <SubTitle>Intervju</SubTitle>
+      <SubTitle>Interview</SubTitle>
       {candidates.map(
         (candidate) =>
-          candidate.status === 'intervju' && (
+          candidate.status === 'interview' && (
             <Card
               key={candidate.id}
               id={candidate.id}
@@ -76,10 +76,10 @@ export const CardGroup = ({
           ),
       )}
 
-      <SubTitle>Erbjudande</SubTitle>
+      <SubTitle>Offer</SubTitle>
       {candidates.map(
         (candidate) =>
-          candidate.status === 'erbjudande' && (
+          candidate.status === 'offer' && (
             <Card
               key={candidate.id}
               id={candidate.id}
@@ -120,10 +120,10 @@ export const CardGroup = ({
           ),
       )}
 
-      <SubTitle>Avslutad</SubTitle>
+      <SubTitle>Completed</SubTitle>
       {candidates.map(
         (candidate) =>
-          candidate.status === 'avslutad' && (
+          candidate.status === 'completed' && (
             <Card
               key={candidate.id}
               id={candidate.id}

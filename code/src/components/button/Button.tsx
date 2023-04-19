@@ -7,7 +7,7 @@ interface StyleButtonProps {
 }
 interface ButtonProps extends StyleButtonProps {
   type?: ButtonType;
-  onClick: (e: SyntheticEvent) => void;
+  onClick?: (e: SyntheticEvent) => void;
   width?: string;
   marginLeft?: number;
   icon?: string;
@@ -32,7 +32,7 @@ export const Button = ({
 
 const StyledButton = styled.button<StyleButtonProps>`
   display: flex;
-  background-color: ${(p) => (p.inverted ? '#ab57ab' : '#ffffff')};
+  background-color: ${(p) => (p.inverted ? '#7D3F7D' : '#ffffff')};
   width: 100%;
   height: 50px;
   justify-content: center;

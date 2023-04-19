@@ -15,6 +15,8 @@ interface TextInputProps extends InputHTMLAttributes<HTMLInputElement> {
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   icon?: boolean;
   inputText?: ReactNode;
+  onBlur?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  error?: string;
 }
 
 export const TextInput = ({
@@ -27,6 +29,8 @@ export const TextInput = ({
   onChange,
   icon = false,
   inputText,
+  onBlur,
+  error,
 }: TextInputProps) => {
   return (
     <InputContainer>
@@ -40,9 +44,11 @@ export const TextInput = ({
           value={value}
           onChange={onChange}
           placeholder={placeholder}
+          onBlur={onBlur}
         />
         {inputText && <InputText>{inputText}</InputText>}
       </StyledInput>
+      <p>{error}</p>
     </InputContainer>
   );
 };
@@ -53,6 +59,8 @@ const InputContainer = styled.div`
   align-items: flex-start;
   width: 100%;
   margin: 5px;
+
+  border: 1px solid red;
 
   @media (min-width: 425px) {
     width: 50%;
